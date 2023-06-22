@@ -18,20 +18,19 @@ async def helper(ctx):
     await ctx.send('Для броска на удачу нужно написать ' + settings['prefix'] + 'lu')
 
 
-@bot.command()
-def check_ten(cube: int, dif: int, result: list, pros: list):
+def check_ten(cube: int, dif: int, result: list):
     if cube == 10:  # additional roll
         result.append(cube)
-        pros.append(cube)
         check_ten(random.randint(1, 10), result)
     elif cube >= dif:
         result.append(cube)
-        pros.append(cube)
         return
 
 
-async def r(ctx, dice: int, dif: int, result: list, pros: list, cons: list):
-    # result, pros, cons = [], [], []  # initial roll list and +/- lists
+@bot.command()
+async def r(ctx, dice: int, dif: int):
+    global result
+    result, pros, cons = [], [], []  # initial roll list and +/- lists
     # count = 0  # cycle counter
     for i in range(dice):
         cube = random.randint(1, 10)
