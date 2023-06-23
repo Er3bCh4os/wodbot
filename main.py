@@ -20,7 +20,7 @@ async def helper(ctx):
 result = []
 
 
-def check_ten(cube: int, dif: int):
+def check_ten(cube: int):
     if cube == 10:  # additional roll
         result.append(cube)
         check_ten(random.randint(1, 10), result)
