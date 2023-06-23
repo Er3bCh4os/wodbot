@@ -23,7 +23,7 @@ result = []
 def check_ten(cube: int):
     if cube == 10:  # additional roll
         result.append(cube)
-        check_ten(random.randint(1, 10), result)
+        check_ten(random.randint(1, 10))
     else:
         result.append(cube)
         return
@@ -37,7 +37,7 @@ async def r(ctx, dice: int, dif: int):
     for i in range(dice):
         cube = random.randint(1, 10)
         # result.append(cube)
-        check_ten(cube, dif)
+        check_ten(cube)
         # count += 1
         if cube >= dif:  # difficulty check
             pros.append(cube)
