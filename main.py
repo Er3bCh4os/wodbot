@@ -57,7 +57,7 @@ async def r(ctx, dice: int, dif: int):
 async def lu(ctx):
     cube = random.randint(1, 10)
     if cube == 10:
-        await ctx.send('Получилось')
+        await ctx.send('Получилось!')
     elif cube == 1:
         await ctx.send('Критический провал...')
     else:
