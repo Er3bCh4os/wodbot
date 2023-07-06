@@ -17,7 +17,9 @@ async def helper(ctx):
     await ctx.send('Пример броска: '+settings['prefix']+'r 2 6')
     await ctx.send('Для броска на удачу нужно написать ' + settings['prefix'] + 'lu')
 
-result = []  # global result list
+# global results list
+
+result = []
 pros = []
 cons = []
 
@@ -35,7 +37,7 @@ def check_ten(cube: int):  # additional roll check
 @bot.command()
 async def r(ctx, dice: int, dif: int):
     global result, pros, cons
-    result, pros, cons = [], [], []
+    result, pros, cons = [], [], []  # nullification of lists
     for i in range(dice):
         cube = random.randint(1, 10)
         check_ten(cube)
