@@ -18,11 +18,14 @@ async def helper(ctx):
     await ctx.send('Для броска на удачу нужно написать ' + settings['prefix'] + 'lu')
 
 result = []  # global result list
+pros = []
+cons = []
 
 
 def check_ten(cube: int):  # additional roll check
     if cube == 10:
         result.append(cube)
+        pros.append(cube)
         check_ten(random.randint(1, 10))
     else:
         result.append(cube)
@@ -31,15 +34,15 @@ def check_ten(cube: int):  # additional roll check
 
 @bot.command()
 async def r(ctx, dice: int, dif: int):
-    global result
-    result, pros, cons = [], [], []  # initial roll list and +/- lists
+    global result, pros, cons
+    result, pros, cons = [], [], []
     for i in range(dice):
         cube = random.randint(1, 10)
         check_ten(cube)
-        if cube >= dif:  # difficulty check
+        if cube >= dif and cube != 10:  # difficulty check
             pros.append(cube)
         if cube == 1:  # failure check
-            cons.append(1)
+            cons.append(cube)
     await ctx.send(result)
     print(len(cons), len(pros))  # debug info
     if len(cons) >= 1 and len(pros) == 0:
