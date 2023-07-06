@@ -24,7 +24,7 @@ pros = []
 cons = []
 
 
-def check_ten(cube: int):  # additional roll check
+def check_ten(cube: int):  # additional roll check for 10
     if cube == 10:
         result.append(cube)
         pros.append(cube)
