@@ -17,6 +17,11 @@ async def helper(ctx):
     await ctx.send('Пример броска: '+settings['prefix']+'r 2 6')
     await ctx.send('Для броска на удачу нужно написать ' + settings['prefix'] + 'lu')
 
+
+@bot.command()
+async def combat(ctx):
+    await ctx.send('Для броска инициативы нужно написать ' + settings['prefix'] + 'inc цифра')
+    await ctx.send('Для броска урона нужно написать ' + settings['prefix'] + 'd кол-во успехов')
 # global results list
 
 result = []
@@ -32,6 +37,23 @@ def check_ten(cube: int):  # additional roll check for 10
     else:
         result.append(cube)
         return
+
+
+@bot.command()
+async def d(ctx, dice: int):
+    global result, pros, cons
+    result, pros = [], []  # nullification of lists
+    for i in range(dice):
+        cube = random.randint(1, 10)
+        check_ten(cube)
+        if cube >= 6 and cube != 10:  # difficulty check
+            pros.append(cube)
+    await ctx.send(result)
+    print(len(pros))  # debug info
+    if len(pros) <= 0:
+        await ctx.send('Неудача!')
+    else:
+        await ctx.send(str(len(pros)-len(cons))+' урона нанесено')
 
 
 @bot.command()
@@ -64,5 +86,11 @@ async def lu(ctx):  # lucky throw
         await ctx.send('Критический провал...')
     else:
         await ctx.send('Провал...')
+
+
+@bot.command()
+async def inc(ctx, init: int):
+    rnd = random.randint(1, 10)
+    await ctx.send("Инициатива: ["+str(rnd+init)+"]")
 
 bot.run(settings['token'])
